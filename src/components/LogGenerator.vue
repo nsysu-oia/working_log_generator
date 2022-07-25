@@ -86,8 +86,8 @@ export default defineComponent({
     setup() {
         const router = useRouter();
         const logTemp: any = ref({});
-        if(localStorage.working_log_temp){
-            logTemp.value = JSON.parse(localStorage.working_log_temp);
+        if(localStorage.oia_working_log_temp){
+            logTemp.value = JSON.parse(localStorage.oia_working_log_temp);
         }
         const formTemplate = {
             timestamp: Date.now(),
@@ -121,7 +121,7 @@ export default defineComponent({
         }
         watch(logTemp, ()=>{
             console.log('change');
-            localStorage.working_log_temp = JSON.stringify(logTemp.value);
+            localStorage.oia_working_log_temp = JSON.stringify(logTemp.value);
             let temp = 0;
             for(let i=0; i<logTemp.value.log.length; i++){
                 temp += logTemp.value.log[i].duration;
@@ -129,8 +129,8 @@ export default defineComponent({
             logTemp.value.total= temp;
         },{ deep: true });
         function exportFile() {
-            if(localStorage.working_log_temp){
-                let dataStr = localStorage.working_log_temp;
+            if(localStorage.oia_working_log_temp){
+                let dataStr = localStorage.oia_working_log_temp;
                 let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
 
                 let exportFileDefaultName = 'export.json';
