@@ -39,13 +39,11 @@
                 <input  v-model="logTemp.phone" type="text">
                 <span>學號：</span>
                 <input  v-model="logTemp.schoolId" type="text">
-                <span>身分證字號：</span>
-                <input  v-model="logTemp.unifiedId" type="text">
             </div>
             <hr class="my-2">
             <div class="flex-grow overflow-auto">
                 <template v-for="(item, index) in logTemp.log" :key="index">
-                    <div class="flex items-center my-2">
+                    <div class="flex items-center">
                         <div class="flex-grow">
                             <div class="flex items-center mb-2">
                                 <div>
@@ -62,31 +60,9 @@
                                     <span>時數：</span>
                                     {{timeToHours(logTemp.log[index].date, logTemp.log[index].startTime, logTemp.log[index].endTime, index)}}
                                 </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div>
-                                    <span>地點：</span>
-                                    <select class="border-2 rounded p-1" v-model="logTemp.log[index].location">
-                                        <template v-for="(item, index) in locationList" :key="index">
-                                            <option>{{item}}</option>
-                                        </template>
-                                    </select>
-                                </div>
-                                <div class="ml-2">
-                                    <span>代班：</span>
-                                    <input type="text" class="border-2 rounded p-1" v-model="logTemp.log[index].fillIn">
-                                </div>
-                                <div class="ml-2">
-                                    <span>出勤狀況：</span>
-                                    <select class="border-2 rounded p-1" v-model="logTemp.log[index].status">
-                                        <option>正常出勤</option>
-                                        <option>未出勤-請假</option>
-                                        <option>未出勤-其他原因</option>
-                                    </select>
-                                </div>
-                                <div class="ml-2">
-                                    <span>備註：</span>
-                                    <input type="text" class="border-2 rounded p-1" v-model="logTemp.log[index].remark">
+                                <div class="ml-2 flex-grow flex items-center">
+                                    <span class="block flex-shrink-0">內容：</span>
+                                    <input type="text" class="border-2 rounded p-1 block w-full" v-model="logTemp.log[index].remark">
                                 </div>
                             </div>
                         </div>
@@ -118,7 +94,6 @@ export default defineComponent({
             name: "",
             phone: "",
             schoolId:"",
-            unifiedId: "",
             year: "111",
             month: "1",
             total: 0,
@@ -129,12 +104,8 @@ export default defineComponent({
             startTime: "",
             endTime: "",
             duration: 0,
-            location: "辦公室",
-            status: "正常出勤",
             remark: "",
-            fillIn: "",
         };
-        const locationList = ['辦公室','第一健身房','第二健身房','網球場','游泳池'];
         function newForm(){
             if($.isEmptyObject(logTemp.value)){
                 logTemp.value = JSON.parse(JSON.stringify(formTemplate));
@@ -200,9 +171,7 @@ export default defineComponent({
                 const d2: any = new Date(date+' '+endTime);
                 console.log(d2-d1);
                 let r = 0;
-                if(logTemp.value.log[index].status=='正常出勤'){
-                    r = (d2 - d1) / 1000 / 60 / 60;
-                }
+                r = (d2 - d1) / 1000 / 60 / 60;
                 logTemp.value.log[index].duration = isNaN(r)?0:r;
                 return (!isNaN(r) && r>0)?r:0;
             },
@@ -223,7 +192,6 @@ export default defineComponent({
                     return d1 - d2;
                 });
             },
-            locationList,
             exportFile,
             loadFile,
         }

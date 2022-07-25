@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-100 h-screen flex flex-col">
         <div class="navbar">
-            <div>體育組工作日誌產生器</div>
+            <div>國際處工作日誌產生器</div>
             <div class="flex-grow"></div>
         </div>
         <div class="flex-grow overflow-auto">
