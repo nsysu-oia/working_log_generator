@@ -41,9 +41,9 @@
                 <input  v-model="logTemp.schoolId" type="text">
             </div>
             <hr class="my-2">
-            <div class="flex-grow overflow-auto mb-2">
+            <div class="flex-grow overflow-auto">
                 <template v-for="(item, index) in logTemp.log" :key="index">
-                    <div class="flex items-center">
+                    <div class="flex items-center my-2">
                         <div class="flex-grow">
                             <div class="flex items-center mb-2">
                                 <div>
